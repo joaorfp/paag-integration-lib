@@ -5,35 +5,19 @@ function IdentityValidationPage() {
   const validationTargetRef = useRef(null);
   const [status, setStatus] = useState('');
 
-  // const imageToBase64 = (path, callback) => {
-  //   fetch(path)
-  //     .then((res) => res.blob())
-  //     .then((blob) => {
-  //       const reader = new FileReader();
-  //       reader.onload = () => callback(reader.result);
-  //       reader.readAsDataURL(blob);
-  //     });
-  // };
-
   const handleStartFullValidation = () => {
     setStatus('Starting validation...');
-    // imageToBase64('/cnh.jpg', (base64Image) => {
-    //   const identityValidation = new IdentityValidation({
-    //     host: 'https://identity-validation.paag.dev/',
-    //     token: 'B9544D749621BF5FA7D36C60FE0B00A710CF1743',
-    //     target: validationTargetRef.current,
-    //   });
-    //   // identityValidation.makeFacematchValidation('12345678900', base64Image);
-		// 	identityValidation.makeFullIdentityValidation();
+  
+    if (validationTargetRef.current) {
+      validationTargetRef.current.cleanup();
+    }
 
-    //   identityValidation.on('success', () => setStatus('Validation successful!'));
-    //   identityValidation.on('fail', () => setStatus('Validation failed.'));
-    //   identityValidation.on('close', () => setStatus('Validation closed.'));
-    // });
 		const identityValidation = new IdentityValidation({
 			host: 'https://identity-validation.paag.dev/',
+			token: 'B9544D749621BF5FA7D36C60FE0B00A710CF1743',
 			target: validationTargetRef.current,
 		});
+
 		identityValidation.makeFullIdentityValidation();
 
 		identityValidation.on('success', () => setStatus('Validation successful!'));
